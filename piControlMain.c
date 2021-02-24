@@ -74,9 +74,9 @@
 #include "piFirmwareUpdate.h"
 
 MODULE_LICENSE("GPL");
-MODULE_AUTHOR("Christof Vogt, Mathias Duckeck, Lukas Wunner");
+MODULE_AUTHOR("Christof Vogt, Mathias Duckeck, Lukas Wunner, Jaap Crezee");
 MODULE_DESCRIPTION("piControl Driver");
-MODULE_VERSION("1.4.0");
+MODULE_VERSION("1.4.1");
 MODULE_SOFTDEP("pre: bcm2835-thermal "	/* cpu temp in process image */
 	       "ks8851 "		/* core eth gateways */
 	       "spi-bcm2835 "		/* core spi0 eth gateways */
@@ -752,7 +752,7 @@ static long piControlIoctl(struct file *file, unsigned int prg_nr, unsigned long
 			SDeviceInfo dev_info;
 			int i, found;
 
-			if (!access_ok(VERIFY_WRITE, (void __user *) usr_addr, sizeof(dev_info))) {
+			if (!access_ok((void __user *) usr_addr, sizeof(dev_info))) {
 				pr_err("invalid address provided by user\n");
 				return -EFAULT;
 			}
@@ -871,7 +871,7 @@ static long piControlIoctl(struct file *file, unsigned int prg_nr, unsigned long
 			if (!isRunning())
 				return -EFAULT;
 
-			if (!access_ok(VERIFY_WRITE, (void __user *) usr_addr,
+			if (!access_ok((void __user *) usr_addr,
 				       sizeof(spi_val))) {
 				pr_err("invalid address provided by user\n");
 				return -EFAULT;

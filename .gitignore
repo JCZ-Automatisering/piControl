@@ -1,5 +1,6 @@
 *.o
 *.cmd
+*.d
 .tmp_versions/
 Module.symvers
 compiletime.h
